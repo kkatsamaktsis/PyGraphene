@@ -8,6 +8,7 @@ import sys
 from enum import Enum, auto
 from typing import List
 
+from graphene.graphene_core.coreference.model.coreference_content import CoreferenceContent
 from discoursesimplification.model.simplification_content import SimplificationContent
 from stanza.server import CoreNLPClient
 
@@ -102,6 +103,12 @@ cli.add_argument('-r',
                  help='Specifies which textual representation for Relation-Extraction should be returned [DEFAULT/DEFAULT_RESOLVED/FLAT/FLAT_RESOLVED/RDF/SERIALIZED].',
                  default=RelationExtractionOutputFormat.DEFAULT)
 
+cli.add_argument('-cf',
+                 '--corefformat',
+                 type=bool,
+                 help='Specifies which textual representation for Coreference-Resolution should be returned [DEFAULT/SERIALIZED].',
+                 default=CoreferenceResolutionOutputFormat.DEFAULT)
+
 cli.add_argument('-dc',
                  '--doCoreference',
                  type=bool,
@@ -123,6 +130,7 @@ output_source = OutputSource[args.output]
 re_output_format = RelationExtractionOutputFormat[args.reformat]
 user_input = [str(args.input)]
 do_coref = args.doCoreference
+coref_output_format = args.corefformat
 isolate_sentences = args.isolateSentences
 sim_output_format = args.simformat
 
@@ -161,6 +169,12 @@ def convert_contents(contents) -> List[Result]:
 
 
 def reformat(content: SimplificationContent) -> str:
+    if isinstance(content, CoreferenceContent):
+        if coref_output_format == CoreferenceResolutionOutputFormat.DEFAULT:
+            return content.substituted_text
+        elif coref_output_format == CoreferenceResolutionOutputFormat.SERIALIZED:
+            raise AssertionError("TODO: Serialization to Json not implemented yet.")
+
     if isinstance(content, SimplificationContent):
         if sim_output_format == DiscourseSimplificationOutputFormat.DEFAULT:
             return content.default_format(False)
@@ -239,6 +253,8 @@ def get_input(given_inputs: List[str], given_format: InputSource) -> List[str]:
 
 def do_main():
     # Create CoreNLPClient used in Graphene and Discourse Simplification.
+    # Pipeline in Graphene's StanfordCoref:
+    # "annotators", "tokenize,ssplit,pos,lemma,ner,depparse,mention,parse,coref"
     with CoreNLPClient(
             annotators=['tokenize', 'ssplit', 'pos', 'lemma', 'ner', 'parse', 'depparse', 'coref'],
             timeout=30000,
@@ -255,7 +271,8 @@ def do_main():
         result = None
 
         if operation == Operation.COREF:
-            raise AssertionError("Not implemented yet.")
+            result = list(
+                map(lambda text: graphene.do_coreference(text), input_texts))
         elif operation == Operation.SIM:
             result = list(
                 map(lambda text: graphene.do_discourse_simplification(text, do_coref, isolate_sentences), input_texts))

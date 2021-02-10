@@ -1,0 +1,5 @@
+graphene.graphene_core.graphene:INFO:Load Coreference-Resolver: 'StanfordCoref'
+discoursesimplification.processing.discourse_simplifier:DEBUG:DiscourseSimplifier initialized
+graphene.graphene_core.graphene:INFO:Graphene initialized
+graphene.graphene_core.graphene:DEBUG:doCoreference for text
+graphene.graphene_core.graphene:DEBUG:Coreference for text finished
