@@ -1,0 +1,17 @@
+README.md
+setup.py
+graphene/__init__.py
+graphene/config.py
+graphene.egg-info/PKG-INFO
+graphene.egg-info/SOURCES.txt
+graphene.egg-info/dependency_links.txt
+graphene.egg-info/top_level.txt
+graphene/graphene_core/__init__.py
+graphene/graphene_core/graphene.py
+graphene/graphene_core/version_info.py
+graphene/graphene_core/coreference/__init__.py
+graphene/graphene_core/coreference/coreference_resolver.py
+graphene/graphene_core/coreference/model/__init__.py
+graphene/graphene_core/coreference/model/coreference_content.py
+graphene/graphene_core/discourse_simplification/__init__.py
+graphene/graphene_core/discourse_simplification/discourse_simplification_content.py

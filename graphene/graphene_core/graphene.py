@@ -69,7 +69,7 @@ class Graphene:
     def do_relation_extraction_from_dsc(self, discourse_simplification_content: DiscourseSimplificationContent,
                                         coreferenced: bool):
         self.logger.debug("doRelationExtraction for discourseSimplificationContent")
-        ec = self.relation_extraction_runner.do_relation_extraction(discourse_simplification_content)
+        ec = self.relation_extraction_runner.do_relation_extraction_from_dsc(discourse_simplification_content)
         ec.coreferenced = discourse_simplification_content.coreferenced
         self.logger.debug("Relation Extraction for discourseSimplificationContent finished")
         return ec

@@ -1,5 +1,136 @@
 graphene.graphene_core.graphene:INFO:Load Coreference-Resolver: 'StanfordCoref'
 discoursesimplification.processing.discourse_simplifier:DEBUG:DiscourseSimplifier initialized
 graphene.graphene_core.graphene:INFO:Graphene initialized
-graphene.graphene_core.graphene:DEBUG:doCoreference for text
-graphene.graphene_core.graphene:DEBUG:Coreference for text finished
+graphene.graphene_core.graphene:DEBUG:doDiscourseSimplification for text
+discoursesimplification.processing.discourse_simplifier:INFO:# Processing sentence 1/1 #
+discoursesimplification.processing.discourse_simplifier:INFO:
+discoursesimplification.processing.discourse_simplifier:INFO:'We walk, although it rains.'
+discoursesimplification.processing.discourse_simplifier:INFO:
+discoursesimplification.processing.discourse_simplifier:DEBUG:### Step 1) CREATE SENTENCE DISCOURSE TREE ###
+discoursesimplification.processing.discourse_simplifier:DEBUG:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:Processing leaf:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:'We walk , although it rains .'
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:Process leaf:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+ROOT
+#1
+└───────> S
+          #2
+          ├─────────────────────────────────────> NP
+          |                                       #3
+          |                                       └───────> PRP
+          |                                                 #4
+          |                                                 └───────> We
+          |                                                           #5
+          ├───────> VP
+          |         #6
+          |         ├─────────────────────────────────────> VBP
+          |         |                                       #7
+          |         |                                       └───────> walk
+          |         |                                                 #8
+          |         ├─────────────────────────────────────> ,
+          |         |                                       #9
+          |         |                                       └───────> ,
+          |         |                                                 #10
+          |         └───────> SBAR
+          |                   #11
+          |                   ├───────────────────────────> IN
+          |                   |                             #12
+          |                   |                             └───────> although
+          |                   |                                       #13
+          |                   └───────> S
+          |                             #14
+          |                             ├───────> NP
+          |                             |         #15
+          |                             |         └───────> PRP
+          |                             |                   #16
+          |                             |                   └───────> it
+          |                             |                             #17
+          |                             └───────> VP
+          |                                       #18
+          |                                       └───────> VBZ
+          |                                                 #19
+          |                                                 └───────> rains
+          |                                                           #20
+          └───────────────────────────────────────────────> .
+                                                            #21
+                                                            └───────> .
+                                                                      #22
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:Extraction rule SubordinationPostExtractor matched.
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:Processing leaf:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:'We walk .'
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:Process leaf:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+ROOT
+#1
+└───────> S
+          #2
+          ├───────> NP
+          |         #3
+          |         └───────> PRP
+          |                   #4
+          |                   └───────> We
+          |                             #5
+          ├───────> VP
+          |         #6
+          |         └───────> VBP
+          |                   #7
+          |                   └───────> walk
+          |                             #8
+          └─────────────────> .
+                              #9
+                              └───────> .
+                                        #10
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:No model rule applied.
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:Processing leaf:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:'It rains .'
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:Process leaf:
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+ROOT
+#1
+└───────> S
+          #2
+          ├───────> NP
+          |         #3
+          |         └───────> PRP
+          |                   #4
+          |                   └───────> It
+          |                             #5
+          ├───────> VP
+          |         #6
+          |         └───────> VBZ
+          |                   #7
+          |                   └───────> rains
+          |                             #8
+          └─────────────────> .
+                              #9
+                              └───────> .
+                                        #10
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:No model rule applied.
+discoursesimplification.runner.discourse_tree.discourse_tree_creator:DEBUG:
+discoursesimplification.processing.discourse_simplifier:DEBUG:
+CO/UNKNOWN_COORDINATION (NULL, ROOT)
+└───n───> CO/CONTRAST ('although', SubordinationPostExtractor)
+          ├───n───> 'We walk .'
+          └───n───> 'It rains .'
+discoursesimplification.processing.discourse_simplifier:DEBUG:
+discoursesimplification.processing.discourse_simplifier:DEBUG:### STEP 2) DO DISCOURSE EXTRACTION ###
+discoursesimplification.processing.discourse_simplifier:DEBUG:
+# We walk, although it rains.
+
+8639a3d5a9b444ef949b6bf94df55588     0     We walk .
+	L:CONTRAST    bfec216fcd58401ab271ebbc01dffdf1
+
+bfec216fcd58401ab271ebbc01dffdf1     0     It rains .
+	L:CONTRAST    8639a3d5a9b444ef949b6bf94df55588
+
+discoursesimplification.processing.discourse_simplifier:INFO:### FINISHED
+graphene.graphene_core.graphene:DEBUG:Discourse Simplification for text finished
